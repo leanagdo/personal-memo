@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { Password } from '../../models/password';
+import { PasswordService } from '../../providers/password-service';
+
 /**
  * Generated class for the PasswordDetailsPage page.
  *
@@ -13,8 +16,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'password-details.html',
 })
 export class PasswordDetailsPage {
+  name:string;
+  password:Password;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, private navParams: NavParams, private passwordService: PasswordService) {
+    this.name = navParams.get('name');
+    passwordService.loadDetails(this.name).subscribe(password => {
+      this.password = password;
+      console.log(password);
+    })
+
   }
 
   ionViewDidLoad() {
