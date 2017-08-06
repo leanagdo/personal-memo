@@ -1,0 +1,9 @@
+node_modules/
+platforms/
+plugins/
+resources/
+temp/
+www/
+*.DS_Store
+*.log
+*.swp
