@@ -61,8 +61,16 @@ export class PasswordsPage {
       // Get the searched users from github
       console.log('term : ' + term);
       this.passwordService.searchPasswords(term).subscribe(passwords => {
-        this.passwords = passwords
+        this.passwords = passwords;
       });
+      
+      if (this.pet === "PasswordUpdateDate"){
+        this.passwords = this.passwords.sort(this.sortByDate);
+      }
+      else if (this.pet === "PasswordAlpha"){
+        this.passwords = this.passwords.sort(this.sortByName);
+      }
+
     }
   }
 
@@ -77,6 +85,17 @@ export class PasswordsPage {
     }
     else {
       console.log("sortByName");
+      this.passwords = this.passwords.sort(this.sortByName);
+    }
+  }
+  onSegmentChanged(value) {
+    console.log("onSegmentChanged:" +  this.pet);
+    if (this.pet === "PasswordUpdateDate"){
+      this.passwords = this.originalPasswords;
+      this.passwords = this.passwords.sort(this.sortByDate);
+    }
+    else if (this.pet === "PasswordAlpha"){
+      this.passwords = this.originalPasswords;
       this.passwords = this.passwords.sort(this.sortByName);
     }
   }
